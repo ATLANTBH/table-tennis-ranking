@@ -22,7 +22,7 @@ public class HomeController extends Controller {
 
 		latestScores = MatchScore.populateTimeSincePP(latestScores);
 		
-		List<Player> allPlayers = Player.find.order("ranking desc").findList();
+		List<Player> allPlayers = Player.find.order("ranking desc").order("position").findList();
         return ok(index.render(allPlayers, latestScores));
     }
     
@@ -43,23 +43,29 @@ public class HomeController extends Controller {
     
     public Result insertPlayers() {
     	
-    	List<String> playerNames = Arrays.asList("Amar", "Emin", "Anis", "Jasmin", "Faruk", "Emir", "Kenan");
+    	if (Player.find.order("ranking desc").findList().isEmpty()) {
     	
-    	for (String name : playerNames) {
-    		
-	    	Player player = new Player();
-	    	player.name = name;
-	    	player.position = 1;
-	    	player.latestPositionDelta = 0;
-	    	player.ranking = 1000L;
-	    	player.matchesPlayed = 0;
-	    	player.winCount = 0;
-	    	player.lostCount = 0;
+	    	List<String> playerNames = Arrays.asList("Amar", "Emin", "Anis", "Jasmin", "Faruk", "Emir", "Kenan");
 	    	
-	    	player.save();
+	    	for (String name : playerNames) {
+	    		
+		    	Player player = new Player();
+		    	player.name = name;
+		    	player.position = 1;
+		    	player.latestPositionDelta = 0;
+		    	player.ranking = 1000L;
+		    	player.matchesPlayed = 0;
+		    	player.winCount = 0;
+		    	player.lostCount = 0;
+		    	
+		    	player.save();
+	    	}
+	    	
+	    	return ok("Players Inserted: " + playerNames);
+	    	
+    	} else {
+    		return ok("Players already exist.");
     	}
-    	
-    	return ok("Players Inserted: " + playerNames);
     }
     
 
