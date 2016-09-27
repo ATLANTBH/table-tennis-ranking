@@ -1,0 +1,138 @@
+@(players: List[Player], latestScores: List[MatchScore])
+
+@*
+ * Call the `main` template with two arguments. The first
+ * argument is a `String` with the title of the page, the second
+ * argument is an `Html` object containing the body of the page.
+ *@
+@main("ABH Table Tennis Rankings") {
+
+    <div class="container gray-font">
+    	<div class="row">
+    		<div class="col-md-6 col-md-offset-4 white-font">
+    			<h2>ABH Table Tennis Rankings</h2>
+    		</div>
+    	</div>
+    	<div class="row" style="padding-top: 30px">
+    		<div class="col-md-6">
+    		
+    			<div class="container">
+	    			<div class="row">
+			    		<div class="col-md-5 header white-font">
+			    			<div style="padding-left: 30px; padding-top: 1px; padding-bottom: 1px;"><h4>Latest Matches</h4></div>
+			    		</div>
+			    	</div>
+			    	@for(score <- latestScores) {
+				    	<div class="row" style="max-height: 300px;">
+				    		<div class="col-md-5 border">
+				    			<div>
+				    				@if(score.playerOnePoints > score.playerTwoPoints) {
+				    					<span class="green-font very-small-font">+@score.playerOneScoreDelta Pts</span>
+					    				<span class="green-font">@score.playerOne.name</span>
+					    				<span class="green-font large-font">@score.playerOnePoints</span>
+					    				 <span class="white-font large-font">:</span>
+					    				 <span class="red-font large-font">@score.playerTwoPoints</span>
+					    				 <span class="red-font">@score.playerTwo.name</span>
+					    			} else {
+					    				 <span class="green-font very-small-font">+@score.playerTwoScoreDelta Pts</span>
+					    				 <span class="green-font">@score.playerTwo.name</span>
+					    				 <span class="green-font large-font">@score.playerTwoPoints</span>
+					    				 <span class="white-font large-font">:</span>
+					    				 <span class="red-font large-font">@score.playerOnePoints</span>
+					    				 <span class="red-font">@score.playerOne.name</span>
+					    			}
+				    				<span class="small-font">- @score.timeSincePP ago</span>
+				    			</div>
+				    		</div>
+				    	</div>
+			    	}
+			    	
+			    	<div class="row" style="padding-top: 20px;">
+			    		<div class="col-md-5 header white-font">
+			    			<div style="padding-left: 30px; padding-top: 1px; padding-bottom: 1px;"><h4>Enter New Match Results</h4></div>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-5 header" style="line-height: 60px;">
+			    			<form action="@routes.HomeController.addScore()" method="POST">
+				    			<div>
+				    				<span style="padding-right: 5px;">Player 1</span>
+				    				<select class="js-example-basic-single" name="playerOne" style="line-height: 20px; width: 190px; background-color: rgba(200,200,200,0.4);">
+									  <option></option>
+									  @for(player <- players) {
+									  	<option value="@player.id">@player.name</option>
+									  }
+									</select>
+									
+				    				
+				    				<span style="padding-right: 5px; padding-left: 15px;">Score</span>
+				    				<input type="text" name="playerOnePoints" style="line-height: 25px; width: 50px">
+				    			</div>
+				    			<div>
+				    				<span style="padding-right: 5px;">Player 2</span>
+				    				<select class="js-example-basic-single" name="playerTwo" style="line-height: 20px; width: 190px; background-color: rgba(200,200,200,0.4);">
+									  <option></option>
+									  @for(player <- players) {
+									  	<option value="@player.id">@player.name</option>
+									  }
+									</select>
+				    				<span style="padding-right: 5px; padding-left: 15px;">Score</span>
+				    				<input type="text" name="playerTwoPoints" style="line-height: 25px; width: 50px">
+				    			</div>
+				    			<div align="center"><button class="btn">Save Score</button></div>
+				    		</form>
+			    		</div>
+			    	</div>
+			    </div>
+			    
+    		
+    		</div>
+    		<div class="col-md-6">
+    			
+   				<div class="row header white-font">
+   					<div class="col-md-2"><h4 style="text-align: center">Rank</h4></div>
+   					<div class="col-md-2"><h4 style="text-align: center">Name</h4></div>
+   					<div class="col-md-2"><h4 style="text-align: center">Score</h4></div>
+   					<div class="col-md-2"><h4 style="text-align: center">MP</h4></div>
+   					<div class="col-md-2"><h4 style="text-align: center">W</h4></div>
+   					<div class="col-md-2"><h4 style="text-align: center">L</h4></div>						
+   				</div>
+   				@for(player <- players) {
+   					<div class="row border" style="line-height: 35px">
+   					<div class="col-md-2" style="text-align: left; padding-left: 30px;">
+   						<span class="large-font">@player.position</span>
+   						@if(player.latestPositionDelta > 0) {
+	   						<span class="small-font green-font">
+	   							+@player.latestPositionDelta
+	   						</span>
+	   					}  
+	   					
+	   					@if(player.latestPositionDelta < 0) {
+	   						<span class="small-font red-font">
+	   							@player.latestPositionDelta
+	   						</span>
+	   					}
+   					</div>
+   					<div class="col-md-2" style="text-align: left;">@player.name</div>
+   					<div class="col-md-2" style="text-align: center;">@player.ranking</div>
+   					<div class="col-md-2" style="text-align: center;">@player.matchesPlayed</div>
+   					<div class="col-md-2" style="text-align: center;">@player.winCount</div>
+   					<div class="col-md-2" style="text-align: center">@player.lostCount</div>						
+   				</div>		
+   				}
+	    			
+    		</div>
+    	</div>
+    	
+    	
+    </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+	  $(".js-example-basic-single").select2(  );
+	});
+
+</script>
+
+
+}

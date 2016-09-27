@@ -1,3 +1,10 @@
+logs
+target
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
 # Ignore Play! working directory #
 bin/
 /db
@@ -13,3 +20,5 @@ server.pid
 *.eml
 /dist/
 .cache
+.DS_Store
+.cache-main
