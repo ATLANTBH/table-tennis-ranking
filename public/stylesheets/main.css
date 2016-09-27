@@ -86,6 +86,11 @@ input[type="text"] {
     color: white;
 }
 
+input[type="number"] {
+    background: rgba(200,200,200,0.4);
+    color: white;
+}
+
 .btn {
   -webkit-border-radius: 5;
   -moz-border-radius: 5;
@@ -105,4 +110,13 @@ input[type="text"] {
   background: rgba(100,200,100,0.3);
   text-decoration: none;
   color: #ffffff;
+}
+
+.player-list-wrapper {
+  max-height: 750px;
+  overflow: auto;
+}
+
+#error-message {
+  color: red;
 }
