@@ -4,9 +4,10 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
-GET     /createPlayers              controllers.HomeController.insertPlayers()
 
 POST    /                           controllers.HomeController.addScore()
+
+POST    /api/v1/players				controllers.PlayerController.create()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
