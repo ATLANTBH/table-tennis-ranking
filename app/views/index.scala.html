@@ -54,7 +54,7 @@
 			    	</div>
 			    	<div class="row">
 			    		<div class="col-md-5 header" style="line-height: 60px;">
-			    			<form action="@routes.HomeController.addScore()" method="POST">
+			    			<form action="@routes.HomeController.addScore()" method="POST" onsubmit="return validateForm()">
 				    			<div>
 				    				<span style="padding-right: 5px;">Player 1</span>
 				    				<select class="js-example-basic-single" name="playerOne" style="line-height: 20px; width: 190px; background-color: rgba(200,200,200,0.4);">
@@ -66,7 +66,7 @@
 									
 				    				
 				    				<span style="padding-right: 5px; padding-left: 15px;">Score</span>
-				    				<input type="text" name="playerOnePoints" style="line-height: 25px; width: 50px">
+				    				<input type="number" required min="0" name="playerOnePoints" style="line-height: 25px; width: 50px">
 				    			</div>
 				    			<div>
 				    				<span style="padding-right: 5px;">Player 2</span>
@@ -77,17 +77,20 @@
 									  }
 									</select>
 				    				<span style="padding-right: 5px; padding-left: 15px;">Score</span>
-				    				<input type="text" name="playerTwoPoints" style="line-height: 25px; width: 50px">
+				    				<input type="number" required min="0" name="playerTwoPoints" style="line-height: 25px; width: 50px">
 				    			</div>
 				    			<div align="center"><button class="btn">Save Score</button></div>
 				    		</form>
 			    		</div>
 			    	</div>
+            <div>
+              <span id="error-message"></span>
+            </div>
 			    </div>
 			    
     		
     		</div>
-    		<div class="col-md-6">
+    		<div class="col-md-6 player-list-wrapper">
     			
    				<div class="row header white-font">
    					<div class="col-md-2"><h4 style="text-align: center">Rank</h4></div>
@@ -132,6 +135,36 @@
 	  $(".js-example-basic-single").select2(  );
 	});
 
+  function validateForm() {
+    var errorSpan = $('#error-message');
+    errorSpan.text('');
+
+    var playerOneId = $('[name="playerOne"]').val();
+    var playerTwoId = $('[name="playerTwo"]').val();
+
+    // In case one of the players is not selected
+    if (!playerOneId || !playerTwoId) {
+      errorSpan.text('Please select players!!!');
+      return false;
+    }
+
+    // In case same player is selected
+    if (playerOneId === playerTwoId) {
+      errorSpan.text('Cannot select same player!!!');
+      return false;
+    }
+
+    var playerOnePoints = $('[name="playerOnePoints"]').val();
+    var playerTwoPoints = $('[name="playerTwoPoints"]').val();
+
+    // In case of draw result
+    if (playerOnePoints === playerTwoPoints) {
+      errorSpan.text('Score cannot be draw!!!');
+      return false;
+    }
+
+    return true;
+  }
 </script>
 
 
