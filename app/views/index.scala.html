@@ -91,11 +91,11 @@
     			
    				<div class="row header white-font">
    					<div class="col-md-2"><h4 style="text-align: center">Rank</h4></div>
-   					<div class="col-md-2"><h4 style="text-align: center">Name</h4></div>
+   					<div class="col-md-5"><h4 style="text-align: center">Name</h4></div>
    					<div class="col-md-2"><h4 style="text-align: center">Score</h4></div>
-   					<div class="col-md-2"><h4 style="text-align: center">MP</h4></div>
-   					<div class="col-md-2"><h4 style="text-align: center">W</h4></div>
-   					<div class="col-md-2"><h4 style="text-align: center">L</h4></div>						
+   					<div class="col-md-1"><h4 style="text-align: center">MP</h4></div>
+   					<div class="col-md-1"><h4 style="text-align: center">W</h4></div>
+   					<div class="col-md-1"><h4 style="text-align: center">L</h4></div>						
    				</div>
    				@for(player <- players) {
    					<div class="row border" style="line-height: 35px">
@@ -113,11 +113,11 @@
 	   						</span>
 	   					}
    					</div>
-   					<div class="col-md-2" style="text-align: left;">@player.name</div>
+   					<div class="col-md-5" style="text-align: left;">@player.name</div>
    					<div class="col-md-2" style="text-align: center;">@player.ranking</div>
-   					<div class="col-md-2" style="text-align: center;">@player.matchesPlayed</div>
-   					<div class="col-md-2" style="text-align: center;">@player.winCount</div>
-   					<div class="col-md-2" style="text-align: center">@player.lostCount</div>						
+   					<div class="col-md-1" style="text-align: center;">@player.matchesPlayed</div>
+   					<div class="col-md-1" style="text-align: center;">@player.winCount</div>
+   					<div class="col-md-1" style="text-align: center">@player.lostCount</div>						
    				</div>		
    				}
 	    			
