@@ -1,0 +1,135 @@
+@(player: Player, latestScores: List[MatchScore])
+
+@*
+ * Call the `main` template with two arguments. The first
+ * argument is a `String` with the title of the page, the second
+ * argument is an `Html` object containing the body of the page.
+ *@
+@main("ABH Table Tennis Rankings") {
+
+    <div class="container gray-font">
+    	<div class="row">
+    		<div class="col-md-6 col-md-offset-4 white-font">
+    			<a href="/index" class="head"><h2>ABH Table Tennis Rankings</h2></a>
+    		</div>
+    	</div>
+    	<div class="row" style="padding-top: 30px">
+    		<div class="col-md-4">
+    		
+    			<div class="row">
+		    		<div class="col-md-12 header white-font">
+		    			<div style="padding-left: 30px; padding-top: 1px; padding-bottom: 1px;"><h4>Player's Stats</h4></div>
+		    		</div>
+		    	</div>
+		    	<div class="row">
+		    		<div class="col-md-12 border">
+			    		<div class="col-md-6">Name</div>
+			    		<div class="col-md-6 white-font">@player.name</div>
+		    		</div>
+		    	</div>
+		    	
+		    	<div class="row">
+		    		<div class="col-md-12 border">
+			    		<div class="col-md-6">Current Rank</div>
+			    		<div class="col-md-6 white-font">@player.position</div>
+		    		</div>
+		    	</div>
+		    	
+		    	<div class="row">
+		    		<div class="col-md-12 border">
+			    		<div class="col-md-6">Current Score</div>
+			    		<div class="col-md-6 white-font">@player.ranking</div>
+		    		</div>
+		    	</div>
+		    	
+		    	<div class="row">
+		    		<div class="col-md-12 border">
+			    		<div class="col-md-6">Win Rate</div>
+			    		<div class="col-md-6 white-font">@((player.winCount * 100) / player.matchesPlayed)%</div>
+		    		</div>
+		    	</div>
+		    	
+		    	<div class="row">
+		    		<div class="col-md-12 border">
+			    		<div class="col-md-6">Matches Played</div>
+			    		<div class="col-md-6 white-font">@player.matchesPlayed</div>
+		    		</div>
+		    	</div>
+		    	
+		    	<div class="row">
+		    		<div class="col-md-12 border">
+			    		<div class="col-md-6">Matches Won</div>
+			    		<div class="col-md-6 white-font">@player.winCount</div>
+		    		</div>
+		    	</div>
+		    	
+		    	<div class="row">
+		    		<div class="col-md-12 border">
+			    		<div class="col-md-6">Matches Lost</div>
+			    		<div class="col-md-6 white-font">@player.lostCount</div>
+		    		</div>
+		    	</div>
+		   	</div>
+			    
+    		
+    		<div class="col-md-8">
+	    			<div class="row header">
+			    		<div class="col-md-12 white-font">
+			    			<div style="padding-left: 30px; padding-top: 1px; padding-bottom: 1px;"><h4>Player's Matches</h4></div>
+			    		</div>
+			    	</div>
+			    	
+		    		<div class="row header white-font">
+	   					<div class="col-md-2 small-font">Status</div>
+	   					<div class="col-md-3 small-font">Opponent</div>
+	   					<div class="col-md-2 small-font">Results</div>
+	   					<div class="col-md-1 small-font">Score</div>
+	   					<div class="col-md-1 small-font">Rank</div>
+	   					<div class="col-md-2 small-font">Date</div>						
+		   			</div>
+			    	@for(score <- latestScores) {
+			    		<div class="row border">
+			    		@if(score.playerOne.id == player.id) {
+			    			@if(score.playerOnePoints > score.playerTwoPoints) {
+			    				<div class="col-md-2 green-font small-font">Win</div>
+			    				<div class="col-md-3 gray-font small-font">@score.playerTwo.name</div>
+			    				<div class="col-md-2 gray-font small-font">@score.playerOnePoints - @score.playerTwoPoints</div>
+			    				<div class="col-md-1 green-font small-font">+@score.playerOneScoreDelta</div>
+			    				<div class="col-md-1 green-font small-font">+@score.playerOneRankDelta</div>
+			    				<div class="col-md-2 gray-font small-font">@score.timeSincePP</div>
+			    			} else {
+			    				<div class="col-md-2 red-font small-font">Lost</div>
+			    				<div class="col-md-3 gray-font small-font">@score.playerTwo.name</div>
+			    				<div class="col-md-2 gray-font small-font">@score.playerOnePoints - @score.playerTwoPoints</div>
+			    				<div class="col-md-1 red-font small-font">@score.playerOneScoreDelta</div>
+			    				<div class="col-md-1 red-font small-font">@score.playerOneRankDelta</div>
+			    				<div class="col-md-2 gray-font small-font">@score.timeSincePP</div>
+			    			}
+			    		} else {
+			    			
+			    			@if(score.playerOnePoints < score.playerTwoPoints) {
+			    				<div class="col-md-2 green-font small-font">Win</div>
+			    				<div class="col-md-3 gray-font small-font">@score.playerOne.name</div>
+			    				<div class="col-md-2 gray-font small-font">@score.playerTwoPoints - @score.playerOnePoints</div>
+			    				<div class="col-md-1 green-font small-font">+@score.playerTwoScoreDelta</div>
+			    				<div class="col-md-1 green-font small-font">+@score.playerTwoRankDelta</div>
+			    				<div class="col-md-2 gray-font small-font">@score.timeSincePP</div>
+			    			} else {
+			    				<div class="col-md-2 red-font small-font">Lost</div>
+			    				<div class="col-md-3 gray-font small-font">@score.playerOne.name</div>
+			    				<div class="col-md-2 gray-font small-font">@score.playerTwoPoints - @score.playerOnePoints</div>
+			    				<div class="col-md-1 red-font small-font">@score.playerTwoScoreDelta</div>
+			    				<div class="col-md-1 red-font small-font">@score.playerTwoRankDelta</div>
+			    				<div class="col-md-2 gray-font small-font">@score.timeSincePP</div>
+			    			}
+			    		}
+			    		</div>
+		   			}
+    		</div>
+    	</div>
+    	
+    	
+    </div>
+
+
+}

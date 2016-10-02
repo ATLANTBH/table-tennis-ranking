@@ -1,5 +1,6 @@
 package models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +44,16 @@ public class MatchScore extends Model {
 	public static List<MatchScore> populateTimeSincePP(List<MatchScore> scores) {
 		for (MatchScore score : scores) {
 			score.timeSincePP = timeSince(score.creationTs);
+		}
+		return scores;
+	}
+	
+	public static List<MatchScore> populateTimeSincePPWithDate(List<MatchScore> scores) {
+		SimpleDateFormat dt1 = new SimpleDateFormat("d MMM");
+
+		
+		for (MatchScore score : scores) {
+			score.timeSincePP = dt1.format(score.creationTs);
 		}
 		return scores;
 	}

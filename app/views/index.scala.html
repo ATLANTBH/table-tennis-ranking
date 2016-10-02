@@ -1,4 +1,4 @@
-@(players: List[Player], latestScores: List[MatchScore])
+@(players: List[Player], allPlayersForDropdown: List[Player], latestScores: List[MatchScore])
 
 @*
  * Call the `main` template with two arguments. The first
@@ -10,7 +10,7 @@
     <div class="container gray-font">
     	<div class="row">
     		<div class="col-md-6 col-md-offset-4 white-font">
-    			<h2>ABH Table Tennis Rankings</h2>
+    			<a href="index" class="head"><h2>ABH Table Tennis Rankings</h2></a>
     		</div>
     	</div>
     	<div class="row" style="padding-top: 30px">
@@ -59,7 +59,7 @@
 				    				<span style="padding-right: 5px;">Player 1</span>
 				    				<select class="js-example-basic-single" name="playerOne" style="line-height: 20px; width: 190px; background-color: rgba(200,200,200,0.4);">
 									  <option></option>
-									  @for(player <- players) {
+									  @for(player <- allPlayersForDropdown) {
 									  	<option value="@player.id">@player.name</option>
 									  }
 									</select>
@@ -72,7 +72,7 @@
 				    				<span style="padding-right: 5px;">Player 2</span>
 				    				<select class="js-example-basic-single" name="playerTwo" style="line-height: 20px; width: 190px; background-color: rgba(200,200,200,0.4);">
 									  <option></option>
-									  @for(player <- players) {
+									  @for(player <- allPlayersForDropdown) {
 									  	<option value="@player.id">@player.name</option>
 									  }
 									</select>
@@ -102,25 +102,27 @@
    				</div>
    				@for(player <- players) {
    					<div class="row border" style="line-height: 35px">
-   					<div class="col-md-2" style="text-align: left; padding-left: 30px;">
-   						<span class="large-font">@player.position</span>
-   						@if(player.latestPositionDelta > 0) {
-	   						<span class="small-font green-font">
-	   							+@player.latestPositionDelta
-	   						</span>
-	   					}  
-	   					
-	   					@if(player.latestPositionDelta < 0) {
-	   						<span class="small-font red-font">
-	   							@player.latestPositionDelta
-	   						</span>
-	   					}
-   					</div>
-   					<div class="col-md-5" style="text-align: left;">@player.name</div>
-   					<div class="col-md-2" style="text-align: center;">@player.ranking</div>
-   					<div class="col-md-1" style="text-align: center;">@player.matchesPlayed</div>
-   					<div class="col-md-1" style="text-align: center;">@player.winCount</div>
-   					<div class="col-md-1" style="text-align: center">@player.lostCount</div>						
+   					<a class="players" href="/playerDetails/@player.id">
+	   					<div class="col-md-2" style="text-align: left; padding-left: 13px;">
+	   						<span class="large-font">@player.position</span>
+	   						@if(player.latestPositionDelta > 0) {
+		   						<span class="small-font green-font">
+		   							+@player.latestPositionDelta
+		   						</span>
+		   					}  
+		   					
+		   					@if(player.latestPositionDelta < 0) {
+		   						<span class="small-font red-font">
+		   							@player.latestPositionDelta
+		   						</span>
+		   					}
+	   					</div>
+	   					<div class="col-md-5" style="text-align: left;">@player.name</div>
+	   					<div class="col-md-2" style="text-align: center;">@player.ranking</div>
+	   					<div class="col-md-1" style="text-align: center;">@player.matchesPlayed</div>
+	   					<div class="col-md-1" style="text-align: center;">@player.winCount</div>
+	   					<div class="col-md-1" style="text-align: center">@player.lostCount</div>			
+   					</a>			
    				</div>		
    				}
 	    			

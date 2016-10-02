@@ -40,7 +40,7 @@ import models.Player;
 	 
 	 private void updatePlayersRanking(Player playerOne, Player playerTwo, MatchScore score) {
 
-	    	List<Player> allPlayers = Player.find.order("ranking desc").findList();
+	    	List<Player> allPlayers = Player.find.where().gt("matchesPlayed", 0).order("ranking desc").findList();
 	    	
 	    	for (int i = 0; i < allPlayers.size(); i++) {
 	    		

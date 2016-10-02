@@ -21,8 +21,11 @@ public class HomeController extends Controller {
 
 		latestScores = MatchScore.populateTimeSincePP(latestScores);
 
-		List<Player> allPlayers = Player.find.order("ranking desc").order("position").findList();
-        return ok(index.render(allPlayers, latestScores));
+		
+
+		List<Player> allPlayers = Player.find.order("name").findList();
+		List<Player> playersWithMatches = Player.find.where().gt("matchesPlayed", 0).orderBy("ranking desc").orderBy("position").findList();
+        return ok(index.render(playersWithMatches, allPlayers, latestScores));
     }
 
     public Result addScore() {
