@@ -4,6 +4,7 @@ import java.util.List;
 
 import models.MatchScore;
 import models.Player;
+import models.ScoreUtils;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -21,11 +22,11 @@ public class HomeController extends Controller {
 
 		latestScores = MatchScore.populateTimeSincePP(latestScores);
 
-		
+
 
 		List<Player> allPlayers = Player.find.order("name").findList();
 		List<Player> playersWithMatches = Player.find.where().gt("matchesPlayed", 0).orderBy("ranking desc").orderBy("position").findList();
-        return ok(index.render(playersWithMatches, allPlayers, latestScores));
+        return ok(index.render(ScoreUtils.penalize(playersWithMatches), allPlayers, latestScores));
     }
 
     public Result addScore() {

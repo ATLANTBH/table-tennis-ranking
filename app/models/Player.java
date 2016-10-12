@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.avaje.ebean.Model;
 
@@ -24,6 +25,9 @@ public class Player extends Model {
 	public Integer matchesPlayed;
 	public Integer winCount;
 	public Integer lostCount;
+
+	@Transient
+	public Long penalty;
 
 	@OneToMany(mappedBy = "playerOne", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	public List<MatchScore> matchesAsPlayerOne;

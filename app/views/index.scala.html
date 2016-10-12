@@ -15,7 +15,7 @@
     	</div>
     	<div class="row" style="padding-top: 30px">
     		<div class="col-md-6">
-    		
+
     			<div class="container">
 	    			<div class="row">
 			    		<div class="col-md-5 header white-font">
@@ -46,7 +46,7 @@
 				    		</div>
 				    	</div>
 			    	}
-			    	
+
 			    	<div class="row" style="padding-top: 20px;">
 			    		<div class="col-md-5 header white-font">
 			    			<div style="padding-left: 30px; padding-top: 1px; padding-bottom: 1px;"><h4>Enter New Match Results</h4></div>
@@ -63,8 +63,8 @@
 									  	<option value="@player.id">@player.name</option>
 									  }
 									</select>
-									
-				    				
+
+
 				    				<span style="padding-right: 5px; padding-left: 15px;">Score</span>
 				    				<input type="number" required min="0" name="playerOnePoints" style="line-height: 25px; width: 50px">
 				    			</div>
@@ -87,18 +87,18 @@
               <span id="error-message"></span>
             </div>
 			    </div>
-			    
-    		
+
+
     		</div>
     		<div class="col-md-6 player-list-wrapper">
-    			
+
    				<div class="row header white-font">
    					<div class="col-md-2"><h4 style="text-align: center">Rank</h4></div>
-   					<div class="col-md-5"><h4 style="text-align: center">Name</h4></div>
-   					<div class="col-md-2"><h4 style="text-align: center">Score</h4></div>
+   					<div class="col-md-4"><h4 style="text-align: center">Name</h4></div>
+   					<div class="col-md-3"><h4 style="text-align: left">Score</h4></div>
    					<div class="col-md-1"><h4 style="text-align: center">MP</h4></div>
    					<div class="col-md-1"><h4 style="text-align: center">W</h4></div>
-   					<div class="col-md-1"><h4 style="text-align: center">L</h4></div>						
+   					<div class="col-md-1"><h4 style="text-align: center">L</h4></div>
    				</div>
    				@for(player <- players) {
    					<div class="row border" style="line-height: 35px">
@@ -109,27 +109,27 @@
 		   						<span class="small-font green-font">
 		   							+@player.latestPositionDelta
 		   						</span>
-		   					}  
-		   					
+		   					}
+
 		   					@if(player.latestPositionDelta < 0) {
 		   						<span class="small-font red-font">
 		   							@player.latestPositionDelta
 		   						</span>
 		   					}
 	   					</div>
-	   					<div class="col-md-5" style="text-align: left;">@player.name</div>
-	   					<div class="col-md-2" style="text-align: center;">@player.ranking</div>
+	   					<div class="col-md-4" style="text-align: left;">@player.name</div>
+	   					<div class="col-md-3" style="text-align: left;">@player.ranking @if(player.penalty > 0) { <span style="color: red">(@player.penalty)</span>}</div>
 	   					<div class="col-md-1" style="text-align: center;">@player.matchesPlayed</div>
 	   					<div class="col-md-1" style="text-align: center;">@player.winCount</div>
-	   					<div class="col-md-1" style="text-align: center">@player.lostCount</div>			
-   					</a>			
-   				</div>		
+	   					<div class="col-md-1" style="text-align: center">@player.lostCount</div>
+   					</a>
+   				</div>
    				}
-	    			
+
     		</div>
     	</div>
-    	
-    	
+
+
     </div>
 
 <script type="text/javascript">
