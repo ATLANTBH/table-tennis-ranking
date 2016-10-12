@@ -16,7 +16,7 @@ public class ScoreUtils {
 		Integer totalPlayed = players.stream().collect(Collectors.summingInt(p -> p.matchesPlayed));
 
 		Double avg = totalPlayed.doubleValue() / players.size();
-		
+
 		players.stream().forEach(p -> applyPenalty(p, avg));
 
 		Collections.sort(players, (o1, o2) -> o2.ranking.compareTo(o1.ranking));
