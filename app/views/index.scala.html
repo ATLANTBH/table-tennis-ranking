@@ -118,7 +118,7 @@
 		   					}
 	   					</div>
 	   					<div class="col-md-4" style="text-align: left;">@player.name</div>
-	   					<div class="col-md-3" style="text-align: left;">@player.ranking @if(player.penalty != null) { <span style="color: red">(@player.penalty)</span>}</div>
+	   					<div class="col-md-3" style="text-align: left;">@player.ranking @if(player.penalty != null && player.penalty > 0l) { <span style="color: red">(@player.penalty)</span>}</div>
 	   					<div class="col-md-1" style="text-align: center;">@player.matchesPlayed</div>
 	   					<div class="col-md-1" style="text-align: center;">@player.winCount</div>
 	   					<div class="col-md-1" style="text-align: center">@player.lostCount</div>
