@@ -12,5 +12,5 @@ libraryDependencies ++= Seq(
   javaWs,
   "org.webjars.bower" % "jquery" % "2.1.4",
   "org.webjars" % "bootstrap" % "3.3.5",
-  "postgresql" % "postgresql" % "9.1-901-1.jdbc4"
+  "org.postgresql" % "postgresql" % "42.4.0"
 )
